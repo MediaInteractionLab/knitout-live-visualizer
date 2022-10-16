@@ -261,6 +261,61 @@ k.write('wristband.k');
 <script src="./ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
+function dragOverHandler(ev) {	
+	//console.log('File(s) in drop zone');
+
+	// Prevent default behavior (Prevent fiei	ng opened)
+	ev.preventDefault();
+}
+
+function dropEventHandler(ev) {
+	ev.preventDefault();
+
+	let isSupportedFile = function(filename) {
+		let ext = filename.split('.').pop();
+		if(ext) {
+			ext = ext.toLowerCase();
+			if(ext === 'k' || ext === 'knitout' || ext === 'js')
+				return true;
+		}
+		return false;
+	}
+
+	if (ev.dataTransfer.items) {
+
+		// Use DataTransferItemList interface to access the file(s)
+		if(ev.dataTransfer.items.length != 1)
+			console.warn("WARNING: drag-and-drop is only supported for single items -- choosing first file in list");
+		for(var i = 0; i < ev.dataTransfer.items.length; i++) {
+			if (ev.dataTransfer.items[i].kind === 'file') {
+				var file = ev.dataTransfer.items[i].getAsFile();
+
+				if(isSupportedFile(file.name)) {
+						readFile(file);
+						return;
+					} else {
+						console.warn("file " + file.name + " is no of a supported knitout file type");
+					}
+				}
+			}
+
+		} else {
+
+			// Use DataTransfer interface to access the file(s)
+		if(ev.dataTransfer.items.length != 1)
+			console.warn("WARNING: drag-and-drop is only supported for single items -- choosing first file in list");
+		for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+			var file = ev.dataTransfer.files[i].name;
+
+			if(isSupportedFile(file.name)) {
+				readFile(file);
+				return;
+			} else {
+				console.warn("file " + file.name + " is no of a supported file type");
+				}
+			}
+	}
+}
 
 let editor = ace.edit("editor-text");
 //themes are available here: https://github.com/ajaxorg/ace/tree/master/lib/ace/theme
