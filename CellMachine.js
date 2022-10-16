@@ -1007,6 +1007,8 @@ CellMachine.prototype.source = function CellMachine_source(source) {
 
 CellMachine.prototype.setCarriers = function CellMachine_setCarriers(carriers) {
 	function makeStyle(cn, ci) {
+
+		/*
 		//let's do rainbow around full-saturation colors, assuming 10 carriers.
 		let hue = (Math.floor((ci*5.5)%10) + 0.5) / 10.0 * 6.0;
 		let r, g, b;
@@ -1030,7 +1032,7 @@ CellMachine.prototype.setCarriers = function CellMachine_setCarriers(carriers) {
 			r = (hue - 4.0);
 			g = 0.0;
 			b = 1.0;
-		} else { /* (hue < 6.0) */
+		} else { /* (hue < 6.0) *//*
 			r = 1.0;
 			g = 0.0;
 			b = 1.0 - (hue - 5.0);
@@ -1044,6 +1046,21 @@ CellMachine.prototype.setCarriers = function CellMachine_setCarriers(carriers) {
 		}
 
 		return {color:'#' + h2(r) + h2(g) + h2(b) }
+		*/
+
+		let cols = [
+			'#ff0000',
+			'#00ff00',
+			'#ffff00',
+			'#0000ff',
+			'#ff00ff',
+			'#00ffff',
+			'#ffffff',
+			'#4a8999',
+			'#6c2490',
+			'#b4b4d8'];
+		return { color: cols[ci % cols.length] };
+
 	};
 
 	console.assert(this.carriers.length === 0, "Shouldn't set carriers twice.");
