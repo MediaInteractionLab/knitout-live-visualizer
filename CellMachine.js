@@ -1380,6 +1380,8 @@ CellMachine.prototype.pause = function CellMachine_pause() { /* nothing */ };
 
 CellMachine.prototype['x-stitch-number'] = function Cellmachine_x_stitch_number(args) { };
 
+CellMachine.prototype['x-stitch-number-2nd'] = function Cellmachine_x_stitch_number_2nd(args) { };
+
 CellMachine.prototype['x-vis-color'] = function Cellmachine_x_vis_color(args) {
 	let toks = Array.from(arguments);
 	let color = toks.shift();
@@ -1401,6 +1403,16 @@ CellMachine.prototype['x-vis-color'] = function Cellmachine_x_vis_color(args) {
 	} else {
 		this.styles[key] = {color:color};
 	}
+};
+
+CellMachine.prototype.knit2nd = function CellMachine_knit(d, n, cs) {
+	//TODO: add some visual hin (e.g., change color slightly, modify strike strength, etc.?)
+	this.knit(d, n, cs);
+};
+
+CellMachine.prototype.tuck2nd = function CellMachine_tuck(d, n, cs) {
+	//TODO: add some visual hin (e.g., change color slightly, modify strike strength, etc.?)
+	this.tuck(d, n, cs);
 };
 
 //used to stretch loops/yarns to the current topRow:

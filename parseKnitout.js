@@ -212,6 +212,18 @@ function parseKnitout(codeText, machine, useKnitoutAsSource=false) {
 				var n = parseNeedle(tokens.shift());
 
 				machine.loopOutEdge(n);
+			} else if (op === "x-knit-2nd") {
+				if (tokens.length < 2) throw "x-knit-2nd requires at least two arguments";
+				var d = parseDirection(tokens.shift());
+				var n = parseNeedle(tokens.shift());
+				var cs = parseCarrierSet(tokens);
+				machine.knit2nd(d, n, cs);
+			} else if (op === "x-tuck-2nd") {
+				if (tokens.length < 2) throw "x-tuck-2nd requires at least two arguments";
+				var d = parseDirection(tokens.shift());
+				var n = parseNeedle(tokens.shift());
+				var cs = parseCarrierSet(tokens);
+				machine.tuck2nd(d, n, cs);
 			} else if (op.startsWith("x-")) {
 				if (op in machine) {
 					machine[op](...tokens);
